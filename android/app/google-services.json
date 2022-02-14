@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "697891866526",
+    "project_id": "fowlx-c1fe5",
+    "storage_bucket": "fowlx-c1fe5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697891866526:android:08ae00a0036f8a3240788f",
+        "android_client_info": {
+          "package_name": "com.example.fowl_x"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697891866526-a422qfcnrlqp6d2g1vs4d8rqlu9ceqo0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCYC_vZJJEeycViX2vQJasqN7IzAbkpFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697891866526-a422qfcnrlqp6d2g1vs4d8rqlu9ceqo0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
