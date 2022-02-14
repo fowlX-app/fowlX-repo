@@ -109,30 +109,17 @@ class _BirdInfo extends State<Birds> {
               ),
             ),
             const Padding(padding: EdgeInsets.all(40)),
-            Container(
-              alignment: Alignment.bottomRight,
-              margin: const EdgeInsets.all(10),
-              height: 70.0,
-              width: 200.0,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                    primary: Colors.orange,
-                    onPrimary: Colors.white),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const Medicine()),
-                ),
-                child: Row(
-                  children: const <Widget>[
-                    Text("ADD", style: TextStyle(fontSize: 20)),
-                    Icon(Icons.add),
-                  ],
-                ),
-              ),
-            ),
           ],
         ),
+        persistentFooterButtons: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const Medicine()),
+            ),
+          ),
+        ],
       ),
     );
   }
