@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fowl_x/scrreens/login.dart';
+import 'package:fowl_x/splash.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => const MaterialApp(
-        home: Login(),
+  Widget build(BuildContext context) => MaterialApp(
+        home: SplashScreen(),
         debugShowCheckedModeBanner: false,
       );
 }

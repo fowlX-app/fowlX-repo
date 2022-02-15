@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fowl_x/profIle.dart';
 import 'package:fowl_x/home_page.dart';
+import 'package:fowl_x/scrreens/notifications.dart';
 
 class drawer extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -37,60 +38,74 @@ class drawer extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.home,
-              color: Colors.orange,
-            ),
-            title: TextButton(
-              onPressed: () {
-                // final FirebaseAuth _auth = FirebaseAuth.instance;
-                // final User? user = _auth.currentUser;
-                // final String uid = user!.uid;
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-              child: const Text('Home',
-                  style: TextStyle(fontSize: 18, color: Colors.black)),
-            ),
-          ),
-          SizedBox(height: 20),
-          ListTile(
-            leading: const Icon(
-              Icons.person_outline,
-              color: Colors.orange,
-            ),
-            title: TextButton(
-              onPressed: () {
-                // final FirebaseAuth _auth = FirebaseAuth.instance;
-                // final User? user = _auth.currentUser;
-                // final String uid = user!.uid;
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
-              },
-              child: const Text('Profile',
-                  style: TextStyle(fontSize: 18, color: Colors.black)),
-            ),
-          ),
-          SizedBox(height: 20),
-          ListTile(
-            leading: const Icon(Icons.notifications_active_rounded,
-                color: Colors.orange),
-            title: TextButton(
-              onPressed: () {},
-              child: const Text('Notifications',
-                  style: TextStyle(fontSize: 18, color: Colors.black)),
-            ),
-          ),
-          SizedBox(height: 20),
-          ListTile(
-            leading: const Icon(Icons.logout_outlined, color: Colors.orange),
-            title: TextButton(
-              onPressed: () async {
-                //  await authService.signOut();
-              },
-              child: const Text('Logout',
-                  style: TextStyle(fontSize: 18, color: Colors.black)),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.home,
+                    color: Colors.orange,
+                  ),
+                  title: TextButton(
+                    onPressed: () {
+                      // final FirebaseAuth _auth = FirebaseAuth.instance;
+                      // final User? user = _auth.currentUser;
+                      // final String uid = user!.uid;
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
+                    child: const Text('Home',
+                        style: TextStyle(fontSize: 18, color: Colors.black)),
+                  ),
+                ),
+                SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(
+                    Icons.person_outline,
+                    color: Colors.orange,
+                  ),
+                  title: TextButton(
+                    onPressed: () {
+                      // final FirebaseAuth _auth = FirebaseAuth.instance;
+                      // final User? user = _auth.currentUser;
+                      // final String uid = user!.uid;
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Profile()));
+                    },
+                    child: const Text('Profile',
+                        style: TextStyle(fontSize: 18, color: Colors.black)),
+                  ),
+                ),
+                SizedBox(height: 20),
+                ListTile(
+                  leading: const Icon(Icons.notifications_active_rounded,
+                      color: Colors.orange),
+                  title: TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NotificationScreen()));
+                    },
+                    child: const Text('Notifications',
+                        style: TextStyle(fontSize: 18, color: Colors.black)),
+                  ),
+                ),
+                SizedBox(height: 20),
+                ListTile(
+                  leading:
+                      const Icon(Icons.logout_outlined, color: Colors.orange),
+                  title: TextButton(
+                    onPressed: () async {
+                      //  await authService.signOut();
+                    },
+                    child: const Text('Logout',
+                        style: TextStyle(fontSize: 18, color: Colors.black)),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

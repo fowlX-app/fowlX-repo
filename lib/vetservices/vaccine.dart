@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fowl_x/vetservices/vaccination.dart';
+import 'package:fowl_x/vetservices/vacc_form.dart';
 
 class MyBirds extends StatefulWidget {
   @override
@@ -111,8 +111,16 @@ class _MyBirdInfo extends State<MyBirds> {
           ],
         ),
         persistentFooterButtons: <Widget>[
+          const Text(
+            'EDIT',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: const Icon(
+              Icons.edit,
+              color: Colors.orange,
+              size: 35,
+            ),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const Vaccines()),

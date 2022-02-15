@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fowl_x/vetservices/vet.dart';
+import 'package:fowl_x/vetservices/med_form.dart';
 
 class Birds extends StatefulWidget {
   @override
@@ -70,11 +70,11 @@ class _BirdInfo extends State<Birds> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: const [
-                                        Text('Number of Birds:'),
-                                        Text('Available feeds:'),
-                                        Text('Purchased feeds:'),
-                                        Text('Estimate time:'),
-                                        Text('Used feeds:'),
+                                        Text('Date:'),
+                                        Text('Medication:'),
+                                        Text('Total:'),
+                                        //Text('Estimate time:'),
+                                        //Text('Used feeds:'),
                                       ],
                                     ),
                                     const Padding(
@@ -85,15 +85,15 @@ class _BirdInfo extends State<Birds> {
                                         Text(doc['Date'],
                                             style: const TextStyle(
                                                 color: Colors.black)),
-                                        Text(doc['Vaccine'],
+                                        Text(doc['Medication'],
                                             style: const TextStyle(
                                                 color: Colors.black)),
                                         Text(doc['Total'],
                                             style: const TextStyle(
                                                 color: Colors.black)),
-                                        Text(doc['Observation'],
-                                            style: const TextStyle(
-                                                color: Colors.black)),
+                                        //Text(doc['Observation'],
+                                        // style: const TextStyle(
+                                        //     color: Colors.black)),
                                         // Text(doc['feeds_used_today'],
                                         //     style: const TextStyle(
                                         //         color: Colors.black))
@@ -115,8 +115,16 @@ class _BirdInfo extends State<Birds> {
           ],
         ),
         persistentFooterButtons: <Widget>[
+          const Text(
+            'EDIT',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: const Icon(
+              Icons.edit,
+              color: Colors.orange,
+              size: 35,
+            ),
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const Medicine()),

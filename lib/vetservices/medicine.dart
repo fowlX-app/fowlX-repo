@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fowl_x/home_page.dart';
 import 'package:fowl_x/vetservices/medic.dart';
 import 'package:fowl_x/vetservices/vaccine.dart';
 
@@ -15,6 +16,12 @@ class VetScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const HomeScreen()));
+              },
+              icon: const Icon(Icons.arrow_back)),
           backgroundColor: Colors.orange,
           bottom: const TabBar(
             indicatorColor: Colors.white,
@@ -22,14 +29,14 @@ class VetScreen extends StatelessWidget {
               Tab(
                 text: 'MEDICATION',
                 icon: Icon(
-                  Icons.post_add_outlined,
+                  Icons.medication_rounded,
                   color: Colors.white,
                 ),
               ),
               Tab(
                   text: 'VACCINATION',
                   icon: Icon(
-                    Icons.post_add_outlined,
+                    Icons.medical_services_rounded,
                     color: Colors.white,
                   )),
             ],

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fowl_x/chick/chick_details.dart';
 import 'package:fowl_x/chick/cock_details.dart';
-import 'package:fowl_x/chick/database.dart';
+import 'package:fowl_x/chick/layer_details.dart';
+
+import '../home_page.dart';
 
 // ignore: use_key_in_widget_constructors
 class StockScreen extends StatelessWidget {
@@ -16,6 +18,12 @@ class StockScreen extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => HomeScreen()));
+              },
+              icon: const Icon(Icons.arrow_back)),
           backgroundColor: Colors.orange,
           bottom: const TabBar(
             indicatorColor: Colors.white,

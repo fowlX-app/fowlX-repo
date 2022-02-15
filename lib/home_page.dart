@@ -27,16 +27,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        bottomSheet: Container(
-          child: const Text(
-            '©️fowlX2022    all rights reserved',
-            style: TextStyle(
-              backgroundColor: Colors.orange,
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
         appBar: AppBar(
           backgroundColor: Colors.orange,
           title: const Text(
@@ -113,6 +103,7 @@ class MainPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
@@ -125,7 +116,7 @@ class MainPage extends StatelessWidget {
                               fontSize: 25,
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
-                      Padding(padding: EdgeInsets.fromLTRB(100, 0, 100, 0)),
+                      Padding(padding: EdgeInsets.fromLTRB(70, 0, 70, 0)),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               shape: const StadiumBorder(),
@@ -277,6 +268,15 @@ class MainPage extends StatelessWidget {
                 ]),
               ],
             )),
+        persistentFooterButtons: <Widget>[
+          const Text(
+            '©️fowlX2022 all rights reserved   ',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 13,
+            ),
+          ),
+        ],
       );
 
   void onSelected(BuildContext context, int item) {

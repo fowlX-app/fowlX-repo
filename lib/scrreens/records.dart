@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fowl_x/home_page.dart';
+import 'package:fowl_x/updaterecords.dart';
 
 // ignore: use_key_in_widget_constructors
 class RecordScreen extends StatelessWidget {
@@ -39,8 +40,11 @@ class _MyRecordsState extends State<MyRecords> {
               Navigator.push(
                   context, MaterialPageRoute(builder: (_) => HomeScreen()));
             },
-            icon: const Icon(Icons.arrow_back)),
-        backgroundColor: Colors.white,
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
+        backgroundColor: Colors.orange,
         centerTitle: true,
         title: Text(
           widget.title,
@@ -377,6 +381,23 @@ class _MyRecordsState extends State<MyRecords> {
           ],
         ),
       ),
+      persistentFooterButtons: <Widget>[
+        const Text(
+          'UPDATE',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.edit,
+            color: Colors.orange,
+            size: 35,
+          ),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const Uprecords()),
+          ),
+        ),
+      ],
     );
   }
 }

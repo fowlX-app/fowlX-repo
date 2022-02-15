@@ -38,6 +38,7 @@ dependencies:
   settings_ui: ^2.0.1
   charts_flutter: ^0.12.0
   http_parser: ^4.0.0
+  animated_splash_screen:
 
 dev_dependencies:
 
@@ -49,6 +50,7 @@ dev_dependencies:
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
+  intl: ^0.17.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -71,6 +73,7 @@ flutter:
     - assets/pic2.jpg
     - assets/eggpng.png
     - assets/m5.png
+    - assets/logos.jpg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

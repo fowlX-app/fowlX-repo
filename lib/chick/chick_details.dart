@@ -100,13 +100,17 @@ class ChickInfo extends State<ChicksInfo> {
           padding: EdgeInsets.all(10),
         ),
         persistentFooterButtons: [
+          const Text(
+            'EDIT',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const ChickScreen()));
             },
             icon: const Icon(Icons.edit),
-            iconSize: 30,
+            iconSize: 35,
             color: Colors.orange,
           )
         ],

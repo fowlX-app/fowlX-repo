@@ -48,7 +48,7 @@ class BirdInfo extends State<BirdsInfo> {
                           ),
                         ),
                         title: const Text(
-                          'Layer Feeds',
+                          'Hen Feeds',
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold,
@@ -102,13 +102,17 @@ class BirdInfo extends State<BirdsInfo> {
           padding: const EdgeInsets.all(10),
         ),
         persistentFooterButtons: [
+          const Text(
+            'EDIT',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const LayerScreen()));
             },
             icon: const Icon(Icons.edit),
-            iconSize: 30,
+            iconSize: 35,
             color: Colors.orange,
           )
         ],

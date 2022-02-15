@@ -13,16 +13,16 @@ class CockInfo extends State<CocksInfo> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = ThemeData();
     CollectionReference firebase =
         FirebaseFirestore.instance.collection('Cocks');
 
     User? user = FirebaseAuth.instance.currentUser;
 
-    ThemeData theme = ThemeData();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(primary: Colors.white),
+        colorScheme: theme.colorScheme.copyWith(primary: Colors.orange),
       ),
       home: Scaffold(
         body: Container(
@@ -101,13 +101,17 @@ class CockInfo extends State<CocksInfo> {
           padding: EdgeInsets.all(10),
         ),
         persistentFooterButtons: [
+          const Text(
+            'EDIT',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (_) => const cockscreen()));
             },
             icon: const Icon(Icons.edit),
-            iconSize: 30,
+            iconSize: 35,
             color: Colors.orange,
           )
         ],
