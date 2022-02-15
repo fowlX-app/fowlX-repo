@@ -118,7 +118,7 @@ class MyLayerScreen extends State<LayerScreen> {
               ),
             ],
           ),
-          Row(
+          /*Row(
             children: [
               const Padding(padding: EdgeInsets.all(10.0)),
               Container(
@@ -129,13 +129,21 @@ class MyLayerScreen extends State<LayerScreen> {
                     style: TextStyle(fontSize: 20)),
               ),
               Container(
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  height: 75,
-                  width: 220,
-                  child: Text(estimatecalc(int.parse(birdController.text),
-                      int.parse(availablbeFeedsController.text)))),
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                height: 75,
+                width: 220,
+                child: TextField(
+                  //controller: availablbeFeedsController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        //borderRadius: BorderRadius.all(Radius.circular(24)),
+                        ),
+                    //labelText: 'number of birds'
+                  ),
+                ),
+              )
             ],
-          ),
+          ),*/
           Container(
             padding: const EdgeInsets.all(10.0),
             child:
@@ -187,10 +195,3 @@ class MyLayerScreen extends State<LayerScreen> {
     ]));
   }
 }
-
-/*String firstName;
-void _fetchUserData() async {
-  try{
-
-  }
-}*/
