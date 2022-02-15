@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fowl_x/vetservices/vaccine.dart';
 
 class Vaccines extends StatefulWidget {
   const Vaccines({Key? key}) : super(key: key);
@@ -162,6 +163,8 @@ class vaccine extends State<Vaccines> {
                             int.parse(henController.text)),
                         'Observation': observationController.text
                       });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => MyBirds()));
                     },
                     child: const Text("SAVE", style: TextStyle(fontSize: 15)),
                   ),

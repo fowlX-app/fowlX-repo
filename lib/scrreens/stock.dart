@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fowl_x/chick/cocks.dart';
-import 'package:fowl_x/chick/chick.dart';
-import 'package:fowl_x/chick/layer.dart';
+import 'package:fowl_x/chick/chick_details.dart';
+import 'package:fowl_x/chick/cock_details.dart';
+import 'package:fowl_x/chick/database.dart';
 
 // ignore: use_key_in_widget_constructors
 class StockScreen extends StatelessWidget {
@@ -35,7 +35,7 @@ class StockScreen extends StatelessWidget {
                   )*/
               ),
               Tab(
-                text: 'LAYERS',
+                text: 'HENS',
                 /*icon: Icon(
                   Icons.a,
                   color: Colors.black,
@@ -45,11 +45,11 @@ class StockScreen extends StatelessWidget {
           ),
         ),
         // drawer: MainDrawer(),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            cockscreen(),
-            ChickScreen(),
-            LayerScreen(),
+            CocksInfo(),
+            ChicksInfo(),
+            BirdsInfo(),
           ],
         ),
       ),

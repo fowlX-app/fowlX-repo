@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fowl_x/database.dart';
+import 'package:fowl_x/chick/cock_details.dart';
 
 class cockscreen extends StatefulWidget {
   const cockscreen({Key? key}) : super(key: key);
@@ -46,159 +46,152 @@ class Mycockscreen extends State<cockscreen> {
 
     const Padding(padding: EdgeInsets.symmetric(horizontal: 75, vertical: 75));
     return Scaffold(
+        appBar: AppBar(
+            backgroundColor: Colors.orange,
+            title:
+                const Text('My Feeds', style: TextStyle(color: Colors.black))),
         body: ListView(children: [
-      Column(
-        children: [
-          Row(
+          Column(
             children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                width: 150,
-                height: 75,
-                child: const Text('Amount of feeds purchased',
-                    style: TextStyle(fontSize: 15)),
+              Row(
+                children: [
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    width: 150,
+                    height: 75,
+                    child: const Text('Amount of feeds purchased',
+                        style: TextStyle(fontSize: 15)),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    height: 75,
+                    width: 220,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: purchasedControlller,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            //borderRadius: BorderRadius.all(Radius.circular(24)),
+                            ),
+                        //labelText: 'number of birds'
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    width: 150,
+                    height: 75,
+                    child: const Text('Feeds used today',
+                        style: TextStyle(fontSize: 15)),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    height: 75,
+                    width: 220,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: feedsTodayController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            //borderRadius: BorderRadius.all(Radius.circular(24)),
+                            ),
+                        //labelText: 'number of birds'
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    width: 150,
+                    height: 75,
+                    child: const Text('Amount of feeds available',
+                        style: TextStyle(fontSize: 15)),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    height: 75,
+                    width: 220,
+                    child: TextField(
+                      controller: availablbeFeedsController,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Padding(padding: EdgeInsets.all(10.0)),
+                  Container(
+                    padding: const EdgeInsets.all(10.0),
+                    width: 150,
+                    height: 75,
+                    child: const Text('Number of cocks',
+                        style: TextStyle(fontSize: 15)),
+                  ),
+                  Text(birdController.text),
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    height: 75,
+                    width: 220,
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: birdController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                            //borderRadius: BorderRadius.all(Radius.circular(24)),
+                            ),
+                        //labelText: 'number of birds'
+                      ),
+                    ),
+                  ),
+                ],
               ),
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                height: 75,
-                width: 220,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  controller: purchasedControlller,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        //borderRadius: BorderRadius.all(Radius.circular(24)),
-                        ),
-                    //labelText: 'number of birds'
-                  ),
+                margin: const EdgeInsets.all(10),
+                height: 75.0,
+                width: 175.0,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      primary: Colors.orange,
+                      onPrimary: Colors.white),
+                  onPressed: () {
+                    User? firebaseUser = FirebaseAuth.instance.currentUser;
+                    documentID = firebaseUser!.uid;
+                    print(documentID);
+                    // Time = estimatecalc();
+                    _fireStore2.doc(documentID).set({
+                      'number_cocks': birdController.text,
+                      'Available_feeds': availablbeFeedsController.text,
+                      'feeds_used_today': feedsTodayController.text,
+                      'Estimated_time': estimatecalc(
+                          int.parse(birdController.text),
+                          int.parse(availablbeFeedsController.text)),
+                      'Purchased_feeds': purchasedControlller.text,
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => CocksInfo()),
+                    );
+                    //print(_estimatedTime);
+                  },
+                  child: const Text("SAVE", style: TextStyle(fontSize: 15)),
                 ),
               ),
             ],
           ),
-          Row(
-            children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                width: 150,
-                height: 75,
-                child: const Text('Feeds used today',
-                    style: TextStyle(fontSize: 15)),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                height: 75,
-                width: 220,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  controller: feedsTodayController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        //borderRadius: BorderRadius.all(Radius.circular(24)),
-                        ),
-                    //labelText: 'number of birds'
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                width: 150,
-                height: 75,
-                child: const Text('Amount of feeds available',
-                    style: TextStyle(fontSize: 15)),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                height: 75,
-                width: 220,
-                child: TextField(
-                  controller: availablbeFeedsController,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                width: 150,
-                height: 75,
-                child: const Text('Number of cocks',
-                    style: TextStyle(fontSize: 15)),
-              ),
-              Text(birdController.text),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                height: 75,
-                width: 220,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  controller: birdController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        //borderRadius: BorderRadius.all(Radius.circular(24)),
-                        ),
-                    //labelText: 'number of birds'
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const Padding(padding: EdgeInsets.all(10.0)),
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                width: 150,
-                height: 75,
-                child: const Text('Estimated Time',
-                    style: TextStyle(fontSize: 15)),
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.all(10),
-            height: 75.0,
-            width: 175.0,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  primary: Colors.orange,
-                  onPrimary: Colors.white),
-              onPressed: () {
-                User? firebaseUser = FirebaseAuth.instance.currentUser;
-                documentID = firebaseUser!.uid;
-                print(documentID);
-                // Time = estimatecalc();
-                _fireStore2.doc(documentID).set({
-                  'number_cocks': birdController.text,
-                  'Available_feeds': availablbeFeedsController.text,
-                  'feeds_used_today': feedsTodayController.text,
-                  'Estimated_time': estimatecalc(int.parse(birdController.text),
-                      int.parse(availablbeFeedsController.text)),
-                  'Purchased_feeds': purchasedControlller.text,
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => BirdsInfo()),
-                );
-                //print(_estimatedTime);
-              },
-              child: const Text("SAVE", style: TextStyle(fontSize: 15)),
-            ),
-          ),
-        ],
-      ),
-    ]));
+        ]));
   }
 }

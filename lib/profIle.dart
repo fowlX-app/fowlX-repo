@@ -1,6 +1,8 @@
 //import 'dart:math';
 
 //import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fowl_x/home_page.dart';
 import 'package:flutter/material.dart';
 //import 'package:footer/footer.dart';
@@ -65,10 +67,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController contactController = TextEditingController();
   TextEditingController mailController = TextEditingController();
   TextEditingController farmnameController = TextEditingController();
-  TextEditingController noOfHensController = TextEditingController();
-  TextEditingController typeOfHens = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController password2 = TextEditingController();
+  TextEditingController flockController = TextEditingController();
+
+  CollectionReference _firestore =
+      FirebaseFirestore.instance.collection('Prrofile');
+
+  String? uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +113,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       height: 65,
                       width: 230,
                       child: TextField(
-                        controller: contactController,
+                        controller: lastnameController,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -134,7 +138,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       height: 75,
                       width: 360,
                       child: TextField(
-                        controller: contactController,
+                        controller: mailController,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.email_rounded),
                           border: OutlineInputBorder(
@@ -175,7 +179,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       height: 75,
                       width: 360,
                       child: TextField(
-                        controller: firstnameController,
+                        controller: farmnameController,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.follow_the_signs_rounded),
                           border: OutlineInputBorder(
@@ -192,7 +196,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ),
                   ],
                 ),
-                const Text('Type reared'),
+                const Text('Flock reared'),
                 Row(
                   children: <Widget>[
                     Container(
@@ -200,7 +204,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       height: 75,
                       width: 360,
                       child: TextField(
-                        controller: firstnameController,
+                        controller: flockController,
                         decoration: const InputDecoration(
                           icon: Icon(Icons.indeterminate_check_box),
                           hintText: '',
@@ -211,7 +215,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _firestore.doc(uid).set({
+                          'FirstName': firstnameController.text,
+                          'LastName': lastnameController.text,
+                          'Email': mailController.text,
+                          'Contact': contactController.text,
+                          'Farm_name': farmnameController.text,
+                          'Flock': flockController.text,
+                        });
+                      },
                       icon: const Icon(Icons.edit),
                       iconSize: 25,
                       color: Colors.orange,

@@ -1,37 +1,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fowl_x/chick/chick.dart';
+import 'package:fowl_x/home_page.dart';
 
-class BirdsInfo extends StatefulWidget {
+class ChicksInfo extends StatefulWidget {
   @override
-  BirdInfo createState() => BirdInfo();
+  ChickInfo createState() => ChickInfo();
 }
 
-class BirdInfo extends State<BirdsInfo> {
+class ChickInfo extends State<ChicksInfo> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference firebase =
-        FirebaseFirestore.instance.collection('hens');
-    String docId = firebase.doc().id;
+    CollectionReference _firebase =
+        FirebaseFirestore.instance.collection('chicks');
+
     User? user = FirebaseAuth.instance.currentUser;
-    //String documentID = firebase.doc().id;
-    //documentID = user!.uid;
 
     ThemeData theme = ThemeData();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(primary: Colors.white),
-      ),
+      theme: ThemeData(primaryColor: Colors.orange),
       home: Scaffold(
-        appBar: AppBar(
-            title:
-                const Text('My Feeds', style: TextStyle(color: Colors.black))),
         body: Container(
           child: StreamBuilder(
-            stream: firebase.snapshots(),
+            stream: _firebase.snapshots(),
             builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
@@ -51,7 +46,7 @@ class BirdInfo extends State<BirdsInfo> {
                           ),
                         ),
                         title: const Text(
-                          'Layer Feeds',
+                          'Chick Feeds',
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontWeight: FontWeight.bold,
@@ -75,7 +70,7 @@ class BirdInfo extends State<BirdsInfo> {
                                   padding: EdgeInsets.fromLTRB(40, 0, 50, 0)),
                               Column(
                                 children: [
-                                  Text(doc['number_layers'],
+                                  Text(doc['number_of_chicks'],
                                       style:
                                           const TextStyle(color: Colors.black)),
                                   Text(doc['Available_feeds'],
@@ -104,6 +99,17 @@ class BirdInfo extends State<BirdsInfo> {
           ),
           padding: EdgeInsets.all(10),
         ),
+        persistentFooterButtons: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const ChickScreen()));
+            },
+            icon: const Icon(Icons.edit),
+            iconSize: 30,
+            color: Colors.orange,
+          )
+        ],
       ),
     );
   }

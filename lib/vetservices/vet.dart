@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fowl_x/vetservices/medic.dart';
 
 class Medicine extends StatefulWidget {
   const Medicine({Key? key}) : super(key: key);
@@ -11,11 +14,21 @@ class medicine extends State<Medicine> {
   @override
   Widget build(BuildContext context) {
     TextEditingController dateController = TextEditingController();
-    TextEditingController vaccinesController = TextEditingController();
+    TextEditingController medicineController = TextEditingController();
     TextEditingController observationController = TextEditingController();
     TextEditingController henController = TextEditingController();
     TextEditingController chickController = TextEditingController();
     TextEditingController cockController = TextEditingController();
+
+    String total(int cocks, int chicks, int hens) {
+      int Total = cocks + hens + chicks;
+      return Total.toString();
+    }
+
+    CollectionReference _firestore =
+        FirebaseFirestore.instance.collection('medical_details');
+
+    String? uid = FirebaseAuth.instance.currentUser!.uid;
 
     const Padding(padding: EdgeInsets.all(40.0));
 
@@ -48,7 +61,7 @@ class medicine extends State<Medicine> {
                 width: 400,
                 child: TextField(
                   keyboardType: TextInputType.number,
-                  controller: vaccinesController,
+                  controller: medicineController,
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(
                           //borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -138,7 +151,18 @@ class medicine extends State<Medicine> {
                         shape: const StadiumBorder(),
                         primary: Colors.orange,
                         onPrimary: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                      _firestore.doc(uid).collection('medicineDetails').add({
+                        'Date': dateController.text,
+                        'Medication': medicineController.text,
+                        'Total': total(
+                            int.parse(cockController.text),
+                            int.parse(henController.text),
+                            int.parse(chickController.text))
+                      });
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (_) => Birds()));
+                    },
                     child: const Text("SAVE", style: TextStyle(fontSize: 15)),
                   ),
                 ),

@@ -13,8 +13,11 @@ class _BirdInfo extends State<Birds> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference firebase =
-        FirebaseFirestore.instance.collection('hens');
+    String? uid = FirebaseAuth.instance.currentUser!.uid;
+    CollectionReference firebase = FirebaseFirestore.instance
+        .collection('medical_details')
+        .doc(uid)
+        .collection('medicineDetails');
     String docId = firebase.doc().id;
     User? user = FirebaseAuth.instance.currentUser;
     //String documentID = firebase.doc().id;
