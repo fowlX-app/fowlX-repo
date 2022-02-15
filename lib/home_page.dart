@@ -299,3 +299,5 @@ class MainPage extends StatelessWidget {
     }
   }
 }
+
+HelpPage() {}

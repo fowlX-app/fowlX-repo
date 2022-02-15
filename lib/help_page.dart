@@ -1,61 +1,102 @@
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:flutter/material.dart';
+// ignore_for_file: prefer_const_constructors
 
-class HelpPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:settings_ui/settings_ui.dart';
+
+void main() { 
+  
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Charts in Flutter',
-      theme: ThemeData(primarySwatch: Colors.orange),
-      home: _MyHomePage(),
+      title: 'fowlX',
+      theme: ThemeData(
+        primaryColor: Colors.orange,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      home: MyHomePage(title: 'Settings'),
     );
   }
 }
 
-class _MyHomePage extends StatefulWidget {
-  const _MyHomePage({Key? key}) : super(key: key);
-
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  final String title;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<_MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> {
+  bool isSwitched = false;
+
+  get titlePadding => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('GeeksForGeeks'),
-          backgroundColor: Colors.amber,
-        ),
-        body: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(text: 'Monthly Covid-19 Infections'),
-            // Enable legend
-            legend: Legend(isVisible: true),
-            // Enable tooltip
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<_Infections, String>>[
-              LineSeries<_Infections, String>(
-                  dataSource: <_Infections>[
-                    _Infections('Jan', 35000),
-                    _Infections('Feb', 28000),
-                    _Infections('Mar', 34000),
-                    _Infections('Apr', 32000),
-                    _Infections('May', 40000),
-                    _Infections('Jun', 60000)
-                  ],
-                  xValueMapper: (_Infections victims, _) => victims.year,
-                  yValueMapper: (_Infections victims, _) => victims.victims,
-                  // Enable data label
-                  dataLabelSettings: DataLabelSettings(isVisible: true))
-            ]));
+      appBar: AppBar(
+        title: Text(widget.title),
+        backgroundColor: Colors.orange,
+      ),
+      body: SettingsList(
+        sections: [
+          SettingsSection(
+            //titlePadding: EdgeInsets.all(20),
+            title: Text(
+              'GENERAL',
+              style: TextStyle(color: Colors.orange),
+            ),
+            tiles: [
+              SettingsTile(
+                title: const Text('Language'),
+                value: const Text('English'),
+                leading: Icon(Icons.language),
+                onPressed: (BuildContext context) {},
+              ),
+              SettingsTile.switchTile(
+                title: const Text('Use System Theme'),
+                leading: const Icon(Icons.phone_android),
+                //    switchValue: isSwitched,
+                onToggle: (value) {
+                  setState(() {
+                    isSwitched = value;
+                  });
+                },
+                initialValue: null,
+              ),
+            ],
+          ),
+          SettingsSection(
+            //  titlePadding: const EdgeInsets.all(20),
+            title: const Text(
+              'Section 2',
+              style: TextStyle(
+                color: Colors.orange,
+              ),
+            ),
+            tiles: [
+              SettingsTile(
+                title: const Text('Security'),
+                value: const Text('Fingerprint'),
+                leading: const Icon(Icons.lock),
+                onPressed: (BuildContext context) {},
+              ),
+              SettingsTile.switchTile(
+                title: Text('Use fingerprint'),
+                leading: Icon(Icons.fingerprint),
+                // switchValue: true,
+                onToggle: (value) {},
+                initialValue: null,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
-}
-
-class _Infections {
-  _Infections(this.year, this.victims);
-
-  final String year;
-  final double victims;
 }
