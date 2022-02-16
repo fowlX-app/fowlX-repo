@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fowl_x/home_page.dart';
+import 'package:fowl_x/scrreens/login.dart';
 import 'package:fowl_x/services/auth_services.dart';
 
 class Signup extends StatelessWidget {
@@ -20,6 +21,12 @@ class Signup extends StatelessWidget {
 //Scffold and App bar*********************
       home: Scaffold(
         appBar: AppBar(
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Login()));
+                },
+                icon: const Icon(Icons.arrow_back)),
             centerTitle: true,
             backgroundColor: Colors.orange,
             title: const Text(
@@ -54,6 +61,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   TextEditingController password2 = TextEditingController();
   late String email;
   late String _password;
+
+  String? uid = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   Widget build(BuildContext context) {
@@ -213,30 +222,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       backgroundColor: Colors.orange,
                     ));
                   } else {
-                    User? result = (await AuthService()
-                        .register(mailController.text, password.text));
+                    User? result = await AuthService()
+                        .register(mailController.text, password.text);
                     if (result != null) {
                       FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                               email: email, password: _password)
                           .then((signedInUser) {
-                        /*UserManagement()
-                            .storeNewUser(signedInUser.user, context);*/
-                        /*firestore.doc(firebaseUser!.uid).set({
-                          'lastname': lastnameController.text,
-                          'firstname': firstnameController.text,
-                          'contact': contactController.text,
-                          'email': mailController.text,
-                        });*/
-                        firestore
-                            .doc(firebaseUser!.uid)
-                            .collection('profile')
-                            .add({
-                          'lastname': lastnameController.text,
-                          'firstname': firstnameController.text,
-                          'contact': contactController.text,
-                          'email': mailController.text,
-                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (_) => const HomeScreen()),
@@ -246,15 +238,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       });
                     }
                   }
-                  print(firstnameController.text);
-                  // ignore: avoid_print
-                  print(lastnameController.text);
-                  print(contactController.text);
-                  print(mailController.text);
-                  print(farmnameController.text);
-                  print(noOfHensController.text);
-                  print(typeOfHens.text);
-                  print(password.text);
                 },
                 style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
               ),

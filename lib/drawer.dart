@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fowl_x/profIle.dart';
 import 'package:fowl_x/home_page.dart';
 import 'package:fowl_x/scrreens/notifications.dart';
+import 'package:fowl_x/settings.dart';
 
 class drawer extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -80,16 +81,15 @@ class drawer extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ListTile(
-                  leading: const Icon(Icons.notifications_active_rounded,
-                      color: Colors.orange),
+                  leading: const Icon(Icons.settings, color: Colors.orange),
                   title: TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NotificationScreen()));
+                              builder: (context) => const Settings()));
                     },
-                    child: const Text('Notifications',
+                    child: const Text('Settings',
                         style: TextStyle(fontSize: 18, color: Colors.black)),
                   ),
                 ),

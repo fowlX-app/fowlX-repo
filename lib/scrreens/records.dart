@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fowl_x/home_page.dart';
 import 'package:fowl_x/updaterecords.dart';
@@ -29,16 +30,24 @@ class MyRecords extends StatefulWidget {
 }
 
 class _MyRecordsState extends State<MyRecords> {
-  CollectionReference _firestore =
-      FirebaseFirestore.instance.collection('Sales');
+  CollectionReference fireData =
+      FirebaseFirestore.instance.collection('salesComputations');
+  CollectionReference fireData1 =
+      FirebaseFirestore.instance.collection('expensesComputations');
+  CollectionReference fireData13 =
+      FirebaseFirestore.instance.collection('Population');
+  CollectionReference _fireData2 =
+      FirebaseFirestore.instance.collection('eggComputations');
+
+  String? uid = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => HomeScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const HomeScreen()));
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -60,79 +69,76 @@ class _MyRecordsState extends State<MyRecords> {
             Padding(
               padding: EdgeInsets.all(10.0),
               child: SizedBox(
-                height: 175,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: StreamBuilder(
-                    stream: _firestore.snapshots(),
-                    builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var doc = snapshot.data!.docs[index];
-                              return ListTile(
-                                hoverColor: Colors.orange,
-                                tileColor: Colors.orange,
-                                //onLongPress: ,
-                                leading: Container(
-                                  height: 60,
-                                  child: const Image(
-                                    image: AssetImage(
-                                      'assets/m5.png',
-                                    ),
+                height: 100,
+                child: StreamBuilder(
+                  stream: fireData.snapshots(),
+                  builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var doc = snapshot.data!.docs[index];
+                            return ListTile(
+                              hoverColor: Colors.orange,
+                              tileColor: Colors.orange,
+                              //onLongPress: ,
+                              leading: Container(
+                                height: 60,
+                                child: const Image(
+                                  image: AssetImage(
+                                    'assets/m5.png',
                                   ),
                                 ),
-                                title: const Text(
-                                  'Sales',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
+                              ),
+                              title: const Text(
+                                'Sales',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
 
-                                subtitle: Container(
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Text('This Day:'),
-                                          Text('This Week'),
-                                          Text('This Month'),
-                                          Text('This Year:'),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              40, 0, 50, 0)),
-                                      Column(
-                                        children: [
-                                          Text(doc['Day'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Week'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Month'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Year'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                              subtitle: Container(
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Text('This Day:'),
+                                        Text('This Week:'),
+                                        Text('This Month:'),
+                                        Text('This Year:'),
+                                      ],
+                                    ),
+                                    const Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(40, 0, 50, 0)),
+                                    Column(
+                                      children: [
+                                        Text(doc['Day'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Week'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Month'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Year'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              );
-                            });
-                      } else {
-                        return Text('');
-                      }
-                    },
-                  ),
+                              ),
+                            );
+                          });
+                    } else {
+                      return Text('');
+                    }
+                  },
                 ),
               ),
             ),
@@ -141,79 +147,76 @@ class _MyRecordsState extends State<MyRecords> {
             Padding(
               padding: EdgeInsets.all(10),
               child: SizedBox(
-                height: 175.0,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: StreamBuilder(
-                    stream: _firestore.snapshots(),
-                    builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var doc = snapshot.data!.docs[index];
-                              return ListTile(
-                                hoverColor: Colors.orange,
-                                tileColor: Colors.orange,
-                                //onLongPress: ,
-                                leading: Container(
-                                  height: 60,
-                                  child: const Image(
-                                    image: AssetImage(
-                                      'assets/m5.png',
-                                    ),
+                height: 100.0,
+                child: StreamBuilder(
+                  stream: fireData1.snapshots(),
+                  builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var doc = snapshot.data!.docs[index];
+                            return ListTile(
+                              hoverColor: Colors.orange,
+                              tileColor: Colors.orange,
+                              //onLongPress: ,
+                              leading: Container(
+                                height: 60,
+                                child: const Image(
+                                  image: AssetImage(
+                                    'assets/m5.png',
                                   ),
                                 ),
-                                title: const Text(
-                                  'Expenses',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
+                              ),
+                              title: const Text(
+                                'Expenses',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
 
-                                subtitle: Container(
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Text('This Day:'),
-                                          Text('This Week'),
-                                          Text('This Month'),
-                                          Text('This Year:'),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              40, 0, 50, 0)),
-                                      Column(
-                                        children: [
-                                          Text(doc['Day'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Week'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Month'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Year'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                              subtitle: Container(
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Text('This Day:'),
+                                        Text('This Week'),
+                                        Text('This Month'),
+                                        Text('This Year:'),
+                                      ],
+                                    ),
+                                    const Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(40, 0, 50, 0)),
+                                    Column(
+                                      children: [
+                                        Text(doc['Day'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Week'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Month'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Year'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              );
-                            });
-                      } else {
-                        return Text('');
-                      }
-                    },
-                  ),
+                              ),
+                            );
+                          });
+                    } else {
+                      return Text('');
+                    }
+                  },
                 ),
               ),
             ),
@@ -222,79 +225,74 @@ class _MyRecordsState extends State<MyRecords> {
             Padding(
               padding: EdgeInsets.all(10),
               child: SizedBox(
-                height: 175.0,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: StreamBuilder(
-                    stream: _firestore.snapshots(),
-                    builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var doc = snapshot.data!.docs[index];
-                              return ListTile(
-                                hoverColor: Colors.orange,
-                                tileColor: Colors.orange,
-                                //onLongPress: ,
-                                leading: Container(
-                                  height: 60,
-                                  child: const Image(
-                                    image: AssetImage(
-                                      'eggpng.png',
-                                    ),
+                height: 100.0,
+                child: StreamBuilder(
+                  stream: _fireData2.snapshots(),
+                  builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var doc = snapshot.data!.docs[index];
+                            return ListTile(
+                              hoverColor: Colors.orange,
+                              tileColor: Colors.orange,
+                              //onLongPress: ,
+                              leading: Container(
+                                height: 60,
+                                child: const Image(
+                                  image: AssetImage(
+                                    'assets/eggpng.png',
                                   ),
                                 ),
-                                title: const Text(
-                                  'Eggs Collected',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
+                              ),
+                              title: const Text(
+                                'Eggs Collected',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
 
-                                subtitle: Container(
+                              subtitle: Container(
                                   child: Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Text('This Day:'),
-                                          Text('This Week'),
-                                          Text('This Month'),
-                                          Text('This Year:'),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              40, 0, 50, 0)),
-                                      Column(
-                                        children: [
-                                          Text(doc['Day'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Week'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Month'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Year'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                        ],
-                                      ),
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: const [
+                                      Text('This Day:'),
+                                      Text('This Week'),
+                                      Text('This Month'),
+                                      Text('This Year:'),
                                     ],
                                   ),
-                                ),
-                              );
-                            });
-                      } else {
-                        return Text('');
-                      }
-                    },
-                  ),
+                                  const Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(40, 0, 50, 0)),
+                                  Column(
+                                    children: [
+                                      Text(doc['Day'],
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                      Text(doc['Week'],
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                      Text(doc['Month'],
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                      Text(doc['Year'],
+                                          style: const TextStyle(
+                                              color: Colors.black)),
+                                    ],
+                                  ),
+                                ],
+                              )),
+                            );
+                          });
+                    } else {
+                      return Text('');
+                    }
+                  },
                 ),
               ),
             ),
@@ -302,80 +300,80 @@ class _MyRecordsState extends State<MyRecords> {
             Padding(
               padding: EdgeInsets.all(10),
               child: SizedBox(
-                height: 175,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: StreamBuilder(
-                    stream: _firestore.snapshots(),
-                    builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              var doc = snapshot.data!.docs[index];
-                              return ListTile(
-                                hoverColor: Colors.orange,
-                                tileColor: Colors.orange,
-                                //onLongPress: ,
-                                leading: Container(
-                                  height: 60,
-                                  child: const Image(
-                                    image: AssetImage(
-                                      'assets/henpng.png',
-                                    ),
+                height: 100,
+                // child: ElevatedButton(
+                //onPressed: () {},
+                child: StreamBuilder(
+                  stream: fireData13.snapshots(),
+                  builder: (_, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var doc = snapshot.data!.docs[index];
+                            return ListTile(
+                              hoverColor: Colors.orange,
+                              tileColor: Colors.orange,
+                              //onLongPress: ,
+                              leading: Container(
+                                height: 60,
+                                child: const Image(
+                                  image: AssetImage(
+                                    'assets/henpng2.png',
                                   ),
                                 ),
-                                title: const Text(
-                                  'Flock',
-                                  style: TextStyle(
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
-                                ),
+                              ),
+                              title: const Text(
+                                'Flock',
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16),
+                              ),
 
-                                subtitle: Container(
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Text('Total:'),
-                                          Text('Hens'),
-                                          Text('Chicks'),
-                                          Text('Cocks'),
-                                        ],
-                                      ),
-                                      const Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              40, 0, 50, 0)),
-                                      Column(
-                                        children: [
-                                          Text(doc['Day'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Week'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Month'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                          Text(doc['Year'],
-                                              style: const TextStyle(
-                                                  color: Colors.black)),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                              subtitle: Container(
+                                child: Row(
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Text('Hens:'),
+                                        Text('Cocks'),
+                                        Text('Chicks'),
+                                        Text('Total'),
+                                      ],
+                                    ),
+                                    const Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(40, 0, 50, 0)),
+                                    Column(
+                                      children: [
+                                        Text(doc['Hens'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Cocks'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Chicks'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                        Text(doc['Total'],
+                                            style: const TextStyle(
+                                                color: Colors.black)),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              );
-                            });
-                      } else {
-                        return Text('');
-                      }
-                    },
-                  ),
+                              ),
+                            );
+                          });
+                    } else {
+                      return Text('');
+                    }
+                  },
                 ),
+                // ),
               ),
             ),
           ],

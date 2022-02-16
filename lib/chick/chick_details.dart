@@ -59,7 +59,7 @@ class ChickInfo extends State<ChicksInfo> {
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: const [
-                                  Text('Number of Birds:'),
+                                  Text('Number of chicks:'),
                                   Text('Available feeds:'),
                                   Text('Purchased feeds:'),
                                   Text('Estimate time:'),

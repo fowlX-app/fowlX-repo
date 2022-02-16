@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fowl_x/about.dart';
 import 'package:fowl_x/drawer.dart';
 import 'package:fowl_x/help_page.dart';
 import 'package:fowl_x/profIle.dart';
@@ -226,8 +227,7 @@ class MainPage extends StatelessWidget {
                             ),
                             child: Row(
                               children: const <Widget>[
-                                Text("PRODUCTION",
-                                    style: TextStyle(fontSize: 20)),
+                                Text("SALES", style: TextStyle(fontSize: 20)),
                                 Icon(Icons.arrow_forward_rounded),
                               ],
                             ),
@@ -268,12 +268,13 @@ class MainPage extends StatelessWidget {
                 ]),
               ],
             )),
-        persistentFooterButtons: <Widget>[
-          const Text(
+        persistentFooterButtons: const <Widget>[
+          Text(
             '©️fowlX2022 all rights reserved   ',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 13,
+              color: Colors.orange,
             ),
           ),
         ],
@@ -283,12 +284,12 @@ class MainPage extends StatelessWidget {
     switch (item) {
       case 0:
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => Profile()),
+          MaterialPageRoute(builder: (context) => HomeScreen()),
         );
         break;
       case 1:
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => HelpPage()),
+          MaterialPageRoute(builder: (context) => about()),
         );
         break;
       /*case 2:
